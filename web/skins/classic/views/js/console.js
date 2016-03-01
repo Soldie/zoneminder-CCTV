@@ -1,19 +1,24 @@
-function setButtonStates( element )
-{
+function setButtonStates( element ) {
     var form = element.form;
     var checked = 0;
-    for ( var i = 0; i < form.elements.length; i++ )
-    {
-        if ( form.elements[i].type == "checkbox" )
-        {
-            if ( form.elements[i].checked )
-            {
+    for ( var i = 0, i_length=form.elements.length; i < i_length; i++ ) {
+        if ( form.elements[i].type == "checkbox" ) {
+            if ( form.elements[i].checked ) {
                 if ( checked++ > 1 )
                     break;
             }
-        }
-    }
-    $(element).getParent( 'tr' ).toggleClass( 'highlight' );
+        } else if ( form.elements[i].length ) {
+			for( var j = 0, j_length = form.elements[i].length; j < j_length; j += 1 ) {
+				if ( form.elements[j].type == "checkbox" ) {
+					if ( form.elements[j].checked ) {
+						if ( checked++ > 1 )
+							break;
+					}
+				}
+			} // end foreach element
+		}
+    } /// end for each element
+    $(element).getParent( '.tr' ).toggleClass( 'highlight' );
     form.editBtn.disabled = (checked!=1);
     form.deleteBtn.disabled = (checked==0);
 }
