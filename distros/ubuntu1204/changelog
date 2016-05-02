@@ -1,3 +1,9 @@
+zoneminder (1.30.2-trusty-2016050202) trusty; urgency=medium
+
+  *  include thumnbails on console
+
+ -- Isaac Connor <iconnor@connortechnology.com>  Mon, 02 May 2016 17:50:37 -0400
+
 zoneminder (1.30.2-trusty-2016050201) trusty; urgency=medium
 
   * add Servers support to API
