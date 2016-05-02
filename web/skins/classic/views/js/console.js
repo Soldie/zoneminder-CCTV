@@ -1,4 +1,12 @@
+<<<<<<< HEAD
 function setButtonStates( element ) {
+=======
+var jsTranslatedAddText;
+var jsTranslatedCloneText;
+
+function setButtonStates( element )
+{
+>>>>>>> master
     var form = element.form;
     var checked = 0;
     for ( var i = 0, i_length=form.elements.length; i < i_length; i++ ) {
@@ -20,7 +28,34 @@ function setButtonStates( element ) {
     } /// end for each element
     $(element).getParent( '.tr' ).toggleClass( 'highlight' );
     form.editBtn.disabled = (checked!=1);
+    form.addBtn.value = (checked==1) ? jsTranslatedCloneText:jsTranslatedAddText;
+
     form.deleteBtn.disabled = (checked==0);
+}
+
+function addMonitor( element)
+{
+
+	  var form = element.form;
+		var dupParam;
+	  var monitorId=-1;
+	  if (form.addBtn.value == jsTranslatedCloneText)
+    {
+	  	// get the value of the first checkbox
+		 for ( var i = 0; i < form.elements.length; i++ )
+		 {
+				if ( form.elements[i].type == "checkbox" )
+				{
+					if ( form.elements[i].checked )
+					{
+						monitorId = form.elements[i].value;
+						break;
+					}
+				}
+			}
+	  }
+	  dupParam = (monitorId == -1 ) ? '': '&dupId='+monitorId;
+    createPopup( '?view=monitor'+dupParam, 'zmMonitor0','monitor' );
 }
 
 function editMonitor( element )
@@ -60,6 +95,8 @@ function reloadWindow()
 
 function initPage()
 {
+		jsTranslatedAddText = translatedAddText;
+	  jsTranslatedCloneText = translatedCloneText;
     reloadWindow.periodical( consoleRefreshTimeout );
     if ( showVersionPopup )
         createPopup( '?view=version', 'zmVersion', 'version' );

@@ -81,8 +81,8 @@ $run_state = dbFetchOne('select Name from States where  IsActive = 1', 'Name' );
 
 $group = NULL;
 if ( ! empty($_COOKIE['zmGroup']) ) {
-	if ( $group = dbFetchOne( 'select * from Groups where Id = ?', NULL, array($_COOKIE['zmGroup'])) )
-		$groupIds = array_flip(explode( ',', $group['MonitorIds'] ));
+    if ( $group = dbFetchOne( 'select * from Groups where Id = ?', NULL, array($_COOKIE['zmGroup'])) )
+        $groupIds = array_flip(explode( ',', $group['MonitorIds'] ));
 }
 
 noCacheHeaders();
@@ -186,6 +186,7 @@ $seqDownFile = getSkinFile( 'graphics/seq-d.gif' );
 
 $versionClass = (ZM_DYN_DB_VERSION&&(ZM_DYN_DB_VERSION!=ZM_VERSION))?'errorText':'';
 
+
 xhtmlHeaders( __FILE__, translate('Console') );
 ?>
 <body>
@@ -248,7 +249,11 @@ else
             <div class="colName"><?php echo translate('Name') ?></div>
             <div class="colFunction"><?php echo translate('Function') ?></div>
 <?php if ( count($servers) ) { ?>
+<<<<<<< HEAD
 			<div class="colServer"><?php echo translate('Server') ?></div>
+=======
+            <th class="colServer"><?php echo translate('Server') ?></th>
+>>>>>>> master
 <?php } ?>
             <div class="colSource"><?php echo translate('Source') ?></div>
 <?php if ( $show_storage_areas ) { ?>
@@ -285,7 +290,8 @@ if ( canEdit('Monitors') )
 echo $columns;
  ?>">
               <input type="button" value="<?php echo translate('Refresh') ?>" onclick="location.reload(true);"/>
-              <?php echo makePopupButton( '?view=monitor', 'zmMonitor0', 'monitor', translate('AddNewMonitor'), (canEdit( 'Monitors' ) && !$user['MonitorIds']) ) ?>
+          <input type="button" name="addBtn" value="<?php echo translate('AddNewMonitor') ?>" onclick="addMonitor( this )"/>
+              <!-- <?php echo makePopupButton( '?view=monitor', 'zmMonitor0', 'monitor', translate('AddNewMonitor'), (canEdit( 'Monitors' ) && !$user['MonitorIds']) ) ?> -->
               <?php echo makePopupButton( '?view=filter&amp;filter[terms][0][attr]=DateTime&amp;filter[terms][0][op]=%3c&amp;filter[terms][0][val]=now', 'zmFilter', 'filter', translate('Filters'), canView( 'Events' ) ) ?>
             </div>
 			<div class="Events">
@@ -314,7 +320,7 @@ foreach( $displayMonitors as $monitor )
         $dclass = "errorText";
     else
     {
-	// https://github.com/ZoneMinder/ZoneMinder/issues/1082
+    // https://github.com/ZoneMinder/ZoneMinder/issues/1082
         if ( !$monitor['zma'] && $monitor['Function']!='Monitor' )
             $dclass = "warnText";
         else
@@ -334,7 +340,11 @@ foreach( $displayMonitors as $monitor )
             <div class="colName"><?php echo makePopupLink( '?view=watch&amp;mid='.$monitor['Id'], 'zmWatch'.$monitor['Id'], array( 'watch', reScale( $monitor['Width'], $scale ), reScale( $monitor['Height'], $scale ) ), $monitor['Name'], $running && ($monitor['Function'] != 'None') && canView( 'Stream' ) ) ?></div>
             <div class="colFunction"><?php echo makePopupLink( '?view=function&amp;mid='.$monitor['Id'], 'zmFunction', 'function', '<span class="'.$fclass.'">'.translate('Fn'.$monitor['Function']).( empty($monitor['Enabled']) ? ', disabled' : '' ) .'</span>', canEdit( 'Monitors' ) ) ?></div>
 <?php if ( count($servers) ) { ?>
+<<<<<<< HEAD
 			<div class="colServer"><?php 
+=======
+            <td class="colServer"><?php 
+>>>>>>> master
 $Server = new Server( $monitor['ServerId'] );
 echo $Server->Name();
  ?></div>
@@ -348,9 +358,9 @@ echo $Server->Name();
 <?php } elseif ( $monitor['Type'] == "Ffmpeg" || $monitor['Type'] == "Libvlc" ) {
     $domain = parse_url( $monitor['Path'], PHP_URL_HOST );
     $shortpath = $domain ? $domain : preg_replace( '/^.*\//', '', $monitor['Path'] );
-	if ( $shortpath == '' ) {
-		$shortpath = 'Monitor ' . $monitor['Id'];
-	}
+    if ( $shortpath == '' ) {
+        $shortpath = 'Monitor ' . $monitor['Id'];
+    }
 ?>
             <div class="colSource"><?php echo makePopupLink( '?view=monitor&amp;mid='.$monitor['Id'], 'zmMonitor'.$monitor['Id'], 'monitor', '<span class="'.$dclass.'">'.$shortpath.'</span>', canEdit( 'Monitors' ) ) ?></div>
 <?php } elseif ( $monitor['Type'] == "cURL" ) { ?>
