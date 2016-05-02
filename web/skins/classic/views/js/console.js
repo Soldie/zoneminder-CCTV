@@ -1,12 +1,7 @@
-<<<<<<< HEAD
-function setButtonStates( element ) {
-=======
 var jsTranslatedAddText;
 var jsTranslatedCloneText;
 
-function setButtonStates( element )
-{
->>>>>>> master
+function setButtonStates( element ) {
     var form = element.form;
     var checked = 0;
     for ( var i = 0, i_length=form.elements.length; i < i_length; i++ ) {

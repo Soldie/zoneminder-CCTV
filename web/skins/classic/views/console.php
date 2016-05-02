@@ -1,9 +1,7 @@
 <?php
-require_once('includes/Server.php');
 $servers = Server::find_all();
 require_once('includes/Storage.php');
 $storage_areas = Storage::find_all();
-require_once('includes/Monitor.php');
 $show_storage_areas = count($storage_areas) > 1 and canEdit( 'System' ) ? 1 : 0;
 
 xhtmlHeaders( __FILE__, translate('Console') );
